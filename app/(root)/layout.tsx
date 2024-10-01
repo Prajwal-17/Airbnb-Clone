@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { Nunito } from "next/font/google"
 import { Navbar } from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Toast } from "@/components/Toaster";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -21,14 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-        <link rel="icon" href="/public/favicon.ico" />
-      </head> */}
       <body className={`${nunito.className} font-medium`}>
         <Navbar />
         <div className="mx-20 my-5">
           {children}
         </div>
+        <Footer />
+        <Toast />
       </body>
     </html >
   );
