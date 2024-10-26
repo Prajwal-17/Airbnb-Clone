@@ -1,52 +1,39 @@
 import Image from "next/image"
 import Logo from "@/public/logo.png";
 import { BiSearch } from "react-icons/bi";
-import { IoMdMenu } from "react-icons/io";
-import ProfilePlaceholder from "@/public/placeholder.jpg";
+import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export const Navbar = () => {
+
   return (<>
-    <nav className="flex justify-between items-center py-5 px-20 border-b-[1px] ">
+    <nav className="flex justify-between items-center  pt-5  pb-5 font-semibold text-sm px-5 md:px-12 lg:px-16 p border-b-2 gap-2">
 
-      <div className="flex justify-center my-2">
-        <Image
-          src={Logo}
-          width={100}
-          height={100}
-          alt="logo"
-        />
+      <div className="hover:cursor-pointer hidden md:block">
+        <Link href="/">
+          <Image
+            src={Logo}
+            width={100}
+            height={100}
+            alt="logo"
+          />
+        </Link>
       </div>
 
-      <div className="flex items-center">
-        <span>Anywhere</span>
-        <span>Any Week</span>
-        <span>Add Guests</span>
-        <div className="bg-pink-500 text-white ">
-          <BiSearch />
+      <div className="flex justify-between md:justify-center w-full md:w-max md:gap-3 items-center border-2 rounded-full px-3 py-2 hover:cursor-pointer hover:shadow-md " >
+        <span className="pl-2 pr-2" >Anywhere</span>
+        <span className="border-x-[1px] hidden md:block px-4">Any Week</span>
+        <span className="pl-2 hidden md:block">Add Guests</span>
+        <div className="bg-rose-500 text-white rounded-full p-2">
+          <BiSearch className="" />
         </div>
       </div>
 
-      <div className="flex items-center">
-        <div>
-          <span>Airbnb Your Home</span>
+      <div className="flex justify-between gap-3 items-center  text-sm  " >
+        <div className="px-5 py-3 text-center  rounded-3xl hover:cursor-pointer hidden md:block hover:bg-slate-100">
+          Airbnb Your Home
         </div>
-
-        <div className="flex items-center border-[#E5E7EB] border-[1px] rounded-3xl gap-2 px-3 py-2">
-
-          <div>
-            <IoMdMenu className="text-xl" />
-          </div>
-
-          <div className="w-7 h-7">
-            <Image
-              src={ProfilePlaceholder}
-              alt="profile png"
-              className="rounded-full object-cover"
-              width={32}
-              height={32}
-            />
-          </div>
-        </div>
+        <UserMenu />
       </div>
     </nav>
   </>)

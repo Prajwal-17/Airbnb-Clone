@@ -32,7 +32,7 @@ export default async function RootLayout({
       <body className={`${nunito.className} font-medium`}>
         <SessionProviderWrapper session={session}>
           <Navbar />
-          <div className="mx-20 my-5">
+          <div>
             {children}
           </div>
           <Footer />
