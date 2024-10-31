@@ -6,6 +6,8 @@ import UserMenu from "./UserMenu";
 
 export const Navbar = () => {
 
+
+
   return (<>
     <nav className="flex justify-between items-center  pt-5  pb-5 font-semibold text-sm px-5 md:px-12 lg:px-16 p border-b-2 gap-2">
 
@@ -25,16 +27,11 @@ export const Navbar = () => {
         <span className="border-x-[1px] hidden md:block px-4">Any Week</span>
         <span className="pl-2 hidden md:block">Add Guests</span>
         <div className="bg-rose-500 text-white rounded-full p-2">
-          <BiSearch className="" />
+          <BiSearch />
         </div>
       </div>
 
-      <div className="flex justify-between gap-3 items-center  text-sm  " >
-        <div className="px-5 py-3 text-center  rounded-3xl hover:cursor-pointer hidden md:block hover:bg-slate-100">
-          Airbnb Your Home
-        </div>
-        <UserMenu />
-      </div>
+      <UserMenu />
     </nav>
   </>)
 }

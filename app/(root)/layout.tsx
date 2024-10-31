@@ -7,6 +7,7 @@ import { Toast } from "@/components/Toaster";
 import SessionProviderWrapper from "@/lib/sessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import RentModal from "@/components/RentModal";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -32,6 +33,8 @@ export default async function RootLayout({
       <body className={`${nunito.className} font-medium`}>
         <SessionProviderWrapper session={session}>
           <Navbar />
+          {/* Rent Modal Popup */}
+          <RentModal />
           <div>
             {children}
           </div>
