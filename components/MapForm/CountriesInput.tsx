@@ -1,28 +1,34 @@
-// CountriesInput.tsx
-"use client"
+"use client";
 import useCountries from "@/hooks/useCountries";
-import { useState } from "react";
+import { useRentHomeStore } from "@/store/rentHome";
 import Select from "react-select";
+interface CountryOption {
+  label: string;
+  latlng: [number, number];
+  flag: string;
+  region: string;
+}
 
 export default function CountriesInput() {
 
   const { getAll } = useCountries();
-  const [value, setValue] = useState();
-
-  function handleCountryChange(selectedOption: undefined) {
-    setValue(selectedOption);
-  }
+  const setCountry = useRentHomeStore((state) => state.setCountry);
+  const setLocation = useRentHomeStore((state) => state.setLocation);
 
   return (
     <div className="relative z-20">
       <Select
         className="z-20"
         isClearable
-        value={value}
-        onChange={handleCountryChange}
+        onChange={(value: CountryOption | null) => {
+          if (value) {
+            setCountry(value.label);
+            setLocation(value.latlng);
+          }
+        }}
         options={getAll()}
         placeholder="Anywhere"
-        formatOptionLabel={(option: any) => (
+        formatOptionLabel={(option: CountryOption) => (
           <div className="flex flex-row items-center gap-3">
             <div>{option.flag}</div>
             <div>

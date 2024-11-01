@@ -1,10 +1,14 @@
 import { create } from 'zustand'
 
+type Coordinates = [number, number];
+
 type RentHomeStore = {
   category: string,
   setCategory: (label: string) => void,
-  location: [],
-  setLocation: () => void,
+  country: string,
+  setCountry: (label: string) => void,
+  location: Coordinates,
+  setLocation: (latlng: Coordinates) => void,
   guestCount: number,
   setGuestCount: (count: number) => void,
   roomCount: number,
@@ -27,8 +31,15 @@ export const useRentHomeStore = create<RentHomeStore>((set) => ({
     category: label,
   })),
 
-  location: [],
-  setLocation: () => { },
+  country: "",
+  setCountry: (label) => set(() => ({
+    country: label,
+  })),
+
+  location: [0, 0],
+  setLocation: (latlng: Coordinates) => set(() => ({
+    location: latlng
+  })),
 
   guestCount: 1,
   setGuestCount: (count) => set(() => ({

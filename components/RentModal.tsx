@@ -10,29 +10,13 @@ import Map from "./MapForm/Map";
 import AmenitiesCounter from "./AmenitiesCounter";
 import { BiDollar } from "react-icons/bi";
 import { useRentHomeStore } from "@/store/rentHome";
-import { UploadDropzone } from "@/utils/uploadthing";
-import { OurFileRouter } from "@/app/api/uploadthing/core";
 import OurUploadDropzone from "./ImageUpload";
 
 export default function RentModal() {
+
   const rentModalPopup = useRentModalStore((state) => state.rentModal);
   const setRentModal = useRentModalStore((state) => state.setRentModal)
-
-  const [currentStepIndex, setCurrentStepIndex] = useState(1)
-
-  // -------------------------------------------------------------
-  const category = useRentHomeStore((state) => state.category)
   const setCategory = useRentHomeStore((state) => state.setCategory)
-  const location = useRentHomeStore((state) => state.location)
-  const setLocation = useRentHomeStore((state) => state.setLocation)
-  const guestCount = useRentHomeStore((state) => state.guestCount)
-  const setGuestCount = useRentHomeStore((state) => state.setGuestCount)
-  const roomCount = useRentHomeStore((state) => state.roomCount)
-  const setRoomCount = useRentHomeStore((state) => state.setRoomCount)
-  const bathroomCount = useRentHomeStore((state) => state.bathroomCount)
-  const setBathroomCount = useRentHomeStore((state) => state.setBathroomCount)
-  const imageUrl = useRentHomeStore((state) => state.imageUrl)
-  const setImageUrl = useRentHomeStore((state) => state.setImageUrl)
   const title = useRentHomeStore((state) => state.title)
   const setTitle = useRentHomeStore((state) => state.setTitle)
   const description = useRentHomeStore((state) => state.description)
@@ -40,20 +24,7 @@ export default function RentModal() {
   const price = useRentHomeStore((state) => state.price)
   const setPrice = useRentHomeStore((state) => state.setPrice)
 
-  console.log({
-    category,
-    location,
-    guestCount,
-    roomCount,
-    bathroomCount,
-    imageUrl,
-    title,
-    description,
-    price,
-  });
-
-  //--------------------------------------------------------------
-
+  const [currentStepIndex, setCurrentStepIndex] = useState(1)
 
   function nextPage() {
     setCurrentStepIndex(currentStepIndex + 1)
@@ -125,7 +96,7 @@ export default function RentModal() {
               <div className="px-6 pb-8 flex flex-col gap-5">
 
                 <CountriesInput />
-                {/* <Map /> */}
+                <Map />
               </div>
 
               <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">
