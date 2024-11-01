@@ -1,5 +1,3 @@
-// "use client"
-
 import { IconType } from "react-icons"
 
 type CategoryBox = {
@@ -18,7 +16,7 @@ export const CategoryBox = ({ label, place, icon: Icon }: CategoryBox) => {
       <Icon className="text-center" size={28} />
       <div>{label}</div>
     </div >
-  
+
   </>)
 }
 

@@ -9,7 +9,7 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
-// @ts-expect-error
+//@ts-expect-error to ignore type
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon.src,

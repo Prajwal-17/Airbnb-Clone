@@ -1,19 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useRentHomeStore } from "@/store/rentHome";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
 
 export default function AmenitiesCounter() {
 
-  const [guestCount, setGuestCount] = useState(1)
-  const [guestRoom, setGuestRoom] = useState(1)
-  const [guestBathroom, setGuestBathroom] = useState(1)
-
-function Dummy (){
-  setGuestCount(1);
-  setGuestRoom(1);
-  setGuestBathroom(1);
-}
+  const guestCount = useRentHomeStore((state) => state.guestCount)
+  const roomCount = useRentHomeStore((state) => state.roomCount)
+  const bathroomCount = useRentHomeStore((state) => state.bathroomCount)
+  const setGuestCount = useRentHomeStore((state) => state.setGuestCount)
+  const setRoomCount = useRentHomeStore((state) => state.setRoomCount)
+  const setBathroomCount = useRentHomeStore((state) => state.setBathroomCount)
 
   return (<>
     <div className="px-6">
@@ -26,13 +23,13 @@ function Dummy (){
         </div>
 
         <div className="flex items-center gap-3 text-xl">
-          <button className="p-2 rounded-full border-2">
+          <button onClick={() => { setGuestCount(guestCount - 1) }} className="p-2 rounded-full border-2">
             <AiOutlineMinus />
           </button>
           <div>
             {guestCount}
           </div>
-          <button className="p-2 rounded-full border-2">
+          <button onClick={() => { setGuestCount(guestCount + 1) }} className="p-2 rounded-full border-2">
             <AiOutlinePlus />
           </button>
         </div>
@@ -46,13 +43,13 @@ function Dummy (){
         </div>
 
         <div className="flex items-center gap-3 text-xl">
-          <button className="p-2 rounded-full border-2">
+          <button onClick={() => { setRoomCount(roomCount - 1) }} className="p-2 rounded-full border-2">
             <AiOutlineMinus />
           </button>
           <div>
-            {guestRoom}
+            {roomCount}
           </div>
-          <button className="p-2 rounded-full border-2">
+          <button onClick={() => { setRoomCount(roomCount + 1) }} className="p-2 rounded-full border-2">
             <AiOutlinePlus />
           </button>
         </div>
@@ -66,13 +63,13 @@ function Dummy (){
         </div>
 
         <div className="flex items-center gap-3 text-xl">
-          <button className="p-2 rounded-full border-2">
+          <button onClick={() => { setBathroomCount(bathroomCount - 1) }} className="p-2 rounded-full border-2">
             <AiOutlineMinus />
           </button>
           <div>
-            {guestBathroom}
+            {bathroomCount}
           </div>
-          <button className="p-2 rounded-full border-2">
+          <button onClick={() => { setBathroomCount(bathroomCount + 1) }} className="p-2 rounded-full border-2">
             <AiOutlinePlus />
           </button>
         </div>

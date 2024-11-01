@@ -8,14 +8,51 @@ import { useState } from "react";
 import CountriesInput from "./MapForm/CountriesInput";
 import Map from "./MapForm/Map";
 import AmenitiesCounter from "./AmenitiesCounter";
-import { OurUploadDropzone } from "./ImageUpload";
 import { BiDollar } from "react-icons/bi";
+import { useRentHomeStore } from "@/store/rentHome";
+import { UploadDropzone } from "@/utils/uploadthing";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
+import OurUploadDropzone from "./ImageUpload";
 
 export default function RentModal() {
   const rentModalPopup = useRentModalStore((state) => state.rentModal);
   const setRentModal = useRentModalStore((state) => state.setRentModal)
 
   const [currentStepIndex, setCurrentStepIndex] = useState(1)
+
+  // -------------------------------------------------------------
+  const category = useRentHomeStore((state) => state.category)
+  const setCategory = useRentHomeStore((state) => state.setCategory)
+  const location = useRentHomeStore((state) => state.location)
+  const setLocation = useRentHomeStore((state) => state.setLocation)
+  const guestCount = useRentHomeStore((state) => state.guestCount)
+  const setGuestCount = useRentHomeStore((state) => state.setGuestCount)
+  const roomCount = useRentHomeStore((state) => state.roomCount)
+  const setRoomCount = useRentHomeStore((state) => state.setRoomCount)
+  const bathroomCount = useRentHomeStore((state) => state.bathroomCount)
+  const setBathroomCount = useRentHomeStore((state) => state.setBathroomCount)
+  const imageUrl = useRentHomeStore((state) => state.imageUrl)
+  const setImageUrl = useRentHomeStore((state) => state.setImageUrl)
+  const title = useRentHomeStore((state) => state.title)
+  const setTitle = useRentHomeStore((state) => state.setTitle)
+  const description = useRentHomeStore((state) => state.description)
+  const setDescription = useRentHomeStore((state) => state.setDescription)
+  const price = useRentHomeStore((state) => state.price)
+  const setPrice = useRentHomeStore((state) => state.setPrice)
+
+  console.log({
+    category,
+    location,
+    guestCount,
+    roomCount,
+    bathroomCount,
+    imageUrl,
+    title,
+    description,
+    price,
+  });
+
+  //--------------------------------------------------------------
 
 
   function nextPage() {
@@ -25,8 +62,6 @@ export default function RentModal() {
   function prevPage() {
     setCurrentStepIndex(currentStepIndex - 1)
   }
-
-  console.log("currentStepIndex", currentStepIndex)
 
   return (<>
 
@@ -54,17 +89,16 @@ export default function RentModal() {
                 <div className="grid grid-cols-2  p-6 mb-6 gap-2 overflow-y-scroll max-h-96 ">
 
                   {categories.map((category, index) => (
-                    // <div
-                    //   onClick={() => { console.log("hereeeeeee") }}
-                    //   className=""
-                    // >
-                    <CategoryBox
+                    <div
                       key={index}
-                      label={category.label}
-                      icon={category.icon}
-                      place="RentModal"
-                    />
-                    // </div>
+                      onClick={() => { setCategory(category.label) }}
+                    >
+                      <CategoryBox
+                        label={category.label}
+                        icon={category.icon}
+                        place="RentModal"
+                      />
+                    </div>
                   ))}
 
                 </div>
@@ -91,7 +125,7 @@ export default function RentModal() {
               <div className="px-6 pb-8 flex flex-col gap-5">
 
                 <CountriesInput />
-                <Map />
+                {/* <Map /> */}
               </div>
 
               <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">
@@ -197,9 +231,9 @@ export default function RentModal() {
                 </div>
 
                 <div className="px-6 flex flex-col ">
-                  <input type="text" className="border-2 rounded-xl py-5 px-2 mt-4 mb-7" placeholder="Title" />
+                  <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" className="border-2 rounded-xl py-5 px-2 mt-4 mb-7" placeholder="Title" />
                   <hr />
-                  <input type="text" className="border-2 rounded-xl py-5 px-2 mt-4 mb-7" placeholder="Description" />
+                  <input value={description} onChange={(e) => setDescription(e.target.value)} type="text" className="border-2 rounded-xl py-5 px-2 mt-4 mb-7" placeholder="Description" />
                 </div>
 
                 <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">
@@ -238,6 +272,8 @@ export default function RentModal() {
                   </div>
                   <input
                     type="number"
+                    value={price}
+                    onChange={(e) => setPrice(Number(e.target.value))}
                     className="pl-10 pr-4 py-3 w-full border border-gray-300 rounded-lg focus:outline-none mt-2 mb-6 focus:border-black"
                     placeholder="Price"
                     min="1"
