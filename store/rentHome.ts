@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 type Coordinates = [number, number];
 
-type RentHomeStore = {
+export type RentHomeStore = {
   category: string,
   setCategory: (label: string) => void,
   country: string,

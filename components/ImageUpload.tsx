@@ -12,7 +12,6 @@ const OurUploadDropzone = () => {
     <UploadDropzone<OurFileRouter, "imageUploader">
       endpoint="imageUploader"
       onClientUploadComplete={(res) => {
-        console.log("Files: ", res);
 
         if (res && res.length > 0) {
           setImageUrl(res[0].url);
@@ -20,12 +19,6 @@ const OurUploadDropzone = () => {
       }}
       onUploadError={(error: Error) => {
         alert(`ERROR! ${error.message}`);
-      }}
-      onUploadBegin={(name) => {
-        console.log("Uploading: ", name);
-      }}
-      onDrop={(acceptedFiles) => {
-        console.log("Accepted files: ", acceptedFiles);
       }}
     />
   );

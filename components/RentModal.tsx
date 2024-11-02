@@ -11,12 +11,23 @@ import AmenitiesCounter from "./AmenitiesCounter";
 import { BiDollar } from "react-icons/bi";
 import { useRentHomeStore } from "@/store/rentHome";
 import OurUploadDropzone from "./ImageUpload";
+import { registerHome } from "@/actions/registerHome";
+import { HomeData } from "@/types";
+import toast from "react-hot-toast";
 
 export default function RentModal() {
 
   const rentModalPopup = useRentModalStore((state) => state.rentModal);
-  const setRentModal = useRentModalStore((state) => state.setRentModal)
+  const setRentModal = useRentModalStore((state) => state.setRentModal);
+
+  const category = useRentHomeStore((state) => state.category)
   const setCategory = useRentHomeStore((state) => state.setCategory)
+  const country = useRentHomeStore((state) => state.country)
+  const location = useRentHomeStore((state) => state.location)
+  const guestCount = useRentHomeStore((state) => state.guestCount)
+  const roomCount = useRentHomeStore((state) => state.roomCount)
+  const bathroomCount = useRentHomeStore((state) => state.bathroomCount)
+  const imageUrl = useRentHomeStore((state) => state.imageUrl)
   const title = useRentHomeStore((state) => state.title)
   const setTitle = useRentHomeStore((state) => state.setTitle)
   const description = useRentHomeStore((state) => state.description)
@@ -32,6 +43,44 @@ export default function RentModal() {
 
   function prevPage() {
     setCurrentStepIndex(currentStepIndex - 1)
+  }
+
+  const data = {
+    category,
+    country,
+    location,
+    guestCount,
+    roomCount,
+    bathroomCount,
+    imageUrl,
+    title,
+    description,
+    price,
+  }
+
+  const handleSubmit = async (data: HomeData) => {
+
+    const loadingState = toast.loading("Registering your home")
+
+    try {
+      const response = await registerHome(data);
+
+      if (response?.success) {
+        toast.dismiss(loadingState)
+        toast.success(response.message)
+      } else {
+        toast.dismiss(loadingState)
+        toast.error(response?.message)
+      }
+
+      setRentModal();
+
+    } catch (error) {
+      if (error) {
+        toast.dismiss(loadingState)
+        toast.error("Something went wrong")
+      }
+    }
   }
 
   return (<>
@@ -259,7 +308,7 @@ export default function RentModal() {
                     Back
                   </button>
                   <button
-                    onClick={nextPage}
+                    onClick={() => { handleSubmit(data) }}
                     className="p-3 rounded-lg bg-rose-500 w-full text-white border-2 border-transparent box-border">
                     Create
                   </button>

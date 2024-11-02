@@ -41,3 +41,20 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+
+model Listing {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  category      String
+  country       String
+  location      Int[]
+  guestCount    Int
+  roomCount     Int
+  bathroomCount Int
+  imageUrl      String
+  title         String
+  description   String
+  price         Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -28,8 +28,9 @@ export default function SignUpForm() {
       }
 
     } catch (error) {
-      console.log(error)
-      toast.error("Something went wrong")
+      if (error) {
+        toast.error("Something went wrong")
+      }
     }
   }
 
