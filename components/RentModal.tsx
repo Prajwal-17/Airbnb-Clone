@@ -125,19 +125,20 @@ export default function RentModal() {
 
                 <div className="grid grid-cols-2  p-6 mb-6 gap-2 overflow-y-scroll max-h-96 ">
 
-                  {categories.map((category, index) => (
+                  {categories.map((categoryItem) => (
+
                     <div
-                      key={index}
-                      onClick={() => { setCategory(category.label) }}
+                      key={categoryItem.label}
+                      onClick={() => { setCategory(categoryItem.label) }}
                     >
                       <CategoryBox
-                        label={category.label}
-                        icon={category.icon}
+                        label={categoryItem.label}
+                        icon={categoryItem.icon}
                         place="RentModal"
+                        selected={category === categoryItem.label}
                       />
                     </div>
                   ))}
-
                 </div>
 
               </div>
@@ -162,7 +163,7 @@ export default function RentModal() {
               <div className="px-6 pb-8 flex flex-col gap-5">
 
                 <CountriesInput />
-                <Map />
+                {/* <Map /> */}
               </div>
 
               <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">
