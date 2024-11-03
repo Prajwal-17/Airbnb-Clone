@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { Nunito } from "next/font/google"
 import { Navbar } from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Toast } from "@/components/Toaster";
 import SessionProviderWrapper from "@/lib/sessionProvider";
 import { getServerSession } from "next-auth";
@@ -38,7 +37,6 @@ export default async function RootLayout({
           <div>
             {children}
           </div>
-          <Footer />
           <Toast />
         </SessionProviderWrapper>
       </body>

@@ -22,7 +22,7 @@ export default function CountriesInput() {
         isClearable
         onChange={(value: CountryOption | null) => {
           if (value) {
-            setCountry(value.label);
+            setCountry(value.label + "," + value.region);
             setLocation(value.latlng);
           }
         }}
