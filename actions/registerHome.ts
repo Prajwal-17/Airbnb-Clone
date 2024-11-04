@@ -4,7 +4,7 @@ import prisma from "@/lib/db"
 import { HomeData } from "@/types"
 
 //register your home (airbnb your home)
-export const registerHome = async (data: HomeData) => {
+export const registerHome = async (data: HomeData, userId: string) => {
   try {
 
     if (!data.category || !data.country || !data.location || !data.guestCount || !data.roomCount || !data.bathroomCount || !data.imageUrl || !data.title || !data.description || !data.price) {
@@ -23,6 +23,7 @@ export const registerHome = async (data: HomeData) => {
         title: data.title,
         description: data.description,
         price: data.price,
+        userId: userId,
       }
     })
 
@@ -38,6 +39,7 @@ export const getListing = async () => {
 
   try {
     const listing = await prisma.listing.findMany({})
+    console.log("server listing", listing)
     return { message: "Successfully fetched Home Lists", success: true, listing: listing }
   } catch (error) {
     return { message: "Something went wrong", success: false }

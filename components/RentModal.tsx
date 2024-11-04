@@ -14,6 +14,7 @@ import OurUploadDropzone from "./ImageUpload";
 import { registerHome } from "@/actions/registerHome";
 import { HomeData } from "@/types";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 export default function RentModal() {
 
@@ -64,12 +65,15 @@ export default function RentModal() {
     price,
   }
 
-  const handleSubmit = async (data: HomeData) => {
+  const { data: session } = useSession();
+  const userId = session?.user.id;
+
+  const handleSubmit = async (data: HomeData, userId: string) => {
 
     const loadingState = toast.loading("Registering your home")
 
     try {
-      const response = await registerHome(data);
+      const response = await registerHome(data, userId);
 
       if (response?.success) {
         toast.dismiss(loadingState)
@@ -163,7 +167,7 @@ export default function RentModal() {
               <div className="px-6 pb-8 flex flex-col gap-5">
 
                 <CountriesInput />
-                <Map />
+                {/* <Map /> */}
               </div>
 
               <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">
@@ -326,7 +330,7 @@ export default function RentModal() {
                     Back
                   </button>
                   <button
-                    onClick={() => { handleSubmit(data) }}
+                    onClick={() => { handleSubmit(data, userId || "") }}
                     className="p-3 rounded-lg bg-rose-500 w-full text-white border-2 border-transparent box-border">
                     Create
                   </button>

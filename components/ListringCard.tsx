@@ -1,13 +1,23 @@
+// "use client"
+
 import Image from "next/image";
 import { ListingType } from "./Listing";
+import { useRouter } from "next/navigation";
 
 interface ListingCardProps {
   item: ListingType;
 }
 
 export default function ListingCard({ item }: ListingCardProps) {
+
+  const router = useRouter();
+
   return (<>
-    <div className="flex flex-col gap-2 group hover:cursor-pointer">
+    <div
+      // onClick={() => {
+      //   router.push(`/listingDetails/${item.id}`)
+      // }}
+      className="flex flex-col gap-2 group hover:cursor-pointer">
 
       <Image
         className="rounded-xl h-full transform transition-transform duration-300 ease-in-out group-hover:scale-105 "

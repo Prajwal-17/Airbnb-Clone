@@ -16,6 +16,7 @@ export type ListingType = {
   title: string;
   description: string;
   price: number;
+  userId: string,
   createdAt: Date;
   updatedAt: Date;
 };

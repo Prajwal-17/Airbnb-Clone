@@ -6,8 +6,6 @@ import UserMenu from "./UserMenu";
 
 export const Navbar = () => {
 
-
-
   return (<>
     <nav className="flex justify-between items-center  pt-5  pb-5 font-semibold text-sm px-5 md:px-12 lg:px-16 p border-b-2 gap-2">
 
