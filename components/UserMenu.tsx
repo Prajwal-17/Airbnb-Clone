@@ -6,8 +6,13 @@ import ProfilePlaceholder from "@/public/placeholder.jpg";
 import { useState } from "react";
 import Link from "next/link";
 import { useRentModalStore } from "@/store/rentModal";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function UserMenu() {
+
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const [toggleMenu, setToggleMenu] = useState<boolean>(false)
   const setRentModal = useRentModalStore((state) => state.setRentModal)
@@ -18,7 +23,12 @@ export default function UserMenu() {
 
   //opens rent home popup
   const showRentModal = () => {
-    setRentModal();
+
+    if (session?.user.id) {
+      setRentModal();
+    }
+    router.push("/auth/login")
+
   }
 
   return (<>
