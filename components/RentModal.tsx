@@ -123,7 +123,7 @@ export default function RentModal() {
                   <div className="text-[#737373] pt-2">Pick a category</div>
                 </div>
 
-                <div className="grid grid-cols-2  p-6 mb-6 gap-2 overflow-y-scroll max-h-96 ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 p-6 mb-6 gap-2 overflow-y-scroll max-h-96 ">
 
                   {categories.map((categoryItem) => (
 
@@ -163,7 +163,7 @@ export default function RentModal() {
               <div className="px-6 pb-8 flex flex-col gap-5">
 
                 <CountriesInput />
-                {/* <Map /> */}
+                <Map />
               </div>
 
               <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">
