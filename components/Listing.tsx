@@ -44,7 +44,7 @@ export default function Listing() {
 
   return (
     <>
-      <section className="px-14 py-8 grid grid-cols-5 gap-6 ">
+      <section className="grid grid-cols-1 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:px-14 py-5 md:py-8 gap-6 ">
         {
           listing && listing.map((item) => (
             <ListingCard item={item} key={item.id} />
