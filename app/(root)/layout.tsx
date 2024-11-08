@@ -29,7 +29,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${nunito.className} font-medium`}>
+      <body className={`${nunito.className} font-nunito`}>
         <SessionProviderWrapper session={session}>
           <Navbar />
           {/* Rent Modal Popup */}

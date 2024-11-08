@@ -53,7 +53,7 @@ const config: Config = {
 				}
 			},
 			fontFamily: {
-				nunito: ['var(--nunito)', "sans-serif"]
+				nunito: ['var(--nunito)', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

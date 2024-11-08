@@ -1,9 +1,9 @@
 import prisma from "@/lib/db";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { listingId: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 
-  const listingId = params.listingId;
+  const listingId = params.id;
 
   try {
     const listing = await prisma.listing.findFirst({
@@ -15,8 +15,10 @@ export async function GET(request: NextRequest, { params }: { params: { listingI
       }
     })
 
-    console.log("listing", listing)
+    return NextResponse.json({ message: "Successfully fetched home lists", success: true, listing: listing })
+
   } catch (error) {
     console.log(error)
+    return NextResponse.json({ message: "Something went wrong", success: false })
   }
 }
