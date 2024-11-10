@@ -22,10 +22,10 @@ export default function DateRangePicker() {
     [initialDateRange.key]: initialDateRange,
   });
 
-  console.log(state)
-  console.log(typeof (state.selection.startDate))
-  console.log(state.selection.endDate)
-  console.log(state.key)
+  // console.log(state)
+  // console.log(typeof (state.selection.startDate))
+  // console.log(state.selection.endDate)
+  // console.log(state.key)
 
   return (
     <div>

@@ -2,6 +2,7 @@
 
 import Calendar from "@/components/Calendar";
 import { ListingType } from "@/components/Listing";
+import ListDetailsUI from "@/components/LoadingUI/ListDetailsUI";
 import Map from "@/components/MapForm/Map";
 import { categories } from "@/constants/categories";
 import Image from "next/image";
@@ -32,6 +33,12 @@ export default function ListingDetails({ params }: {
 
     fetchListingDetails();
   }, [id])
+
+  if (!home) {
+    return (
+      <ListDetailsUI />
+    )
+  }
 
   return (<>
 
