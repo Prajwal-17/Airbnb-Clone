@@ -167,7 +167,7 @@ export default function RentModal() {
               <div className="px-6 pb-8 flex flex-col gap-5">
 
                 <CountriesInput />
-                <Map />
+                {/* <Map /> */}
               </div>
 
               <div className="flex px-6 gap-3 justify-center items-center pb-8 text-center">

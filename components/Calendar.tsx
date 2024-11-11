@@ -39,7 +39,7 @@ export default function DateRangePicker() {
         moveRangeOnFirstSelection={false}
         ranges={Object.values(state)}
         minDate={new Date()}
-        direction="vertical"
+        // direction="vertical"
         showDateDisplay={false}
       />
     </div>

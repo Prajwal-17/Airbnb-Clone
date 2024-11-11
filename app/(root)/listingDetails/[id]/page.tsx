@@ -42,7 +42,7 @@ export default function ListingDetails({ params }: {
 
   return (<>
 
-    <div className="px-56 py-8">
+    <div className="px-4 py-5 md:px-56 md:py-8">
 
       <div>
         <div className="text-2xl font-bold leading-9">
@@ -64,7 +64,8 @@ export default function ListingDetails({ params }: {
         />
       </div>
 
-      <div className="flex gap-8 items-start">
+      {/* <div className="flex gap-8 items-start"> */}
+      <div className="grid grid-cols-1">
 
         <div className="mt-10 p-4">
 
@@ -99,7 +100,7 @@ export default function ListingDetails({ params }: {
           </div>
 
           <div>
-            <Map />
+            {/* <Map /> */}
           </div>
 
         </div>
@@ -111,7 +112,9 @@ export default function ListingDetails({ params }: {
             <span> / night</span>
           </div>
 
-          <Calendar />
+          <div className="overflow-scroll">
+            <Calendar />
+          </div>
 
           <div className="py-4 px-2 border-t-2">
             <button className="w-full bg-rose-500 text-white rounded-lg py-3">Reserve</button>
@@ -125,5 +128,6 @@ export default function ListingDetails({ params }: {
 
       </div>
     </div>
+
   </>)
 }
