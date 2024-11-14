@@ -42,8 +42,9 @@ export default function ListingDetails({ params }: {
 
   return (<>
 
-    <div className="px-3 py-5 md:px-56 md:py-8">
+    <div className="px-3 py-3 md:px-16 lg:px-28 md:py-8">
 
+      {/* title */}
       <div>
         <div className="text-2xl font-bold leading-9">
           {home?.title}
@@ -53,6 +54,7 @@ export default function ListingDetails({ params }: {
         </div>
       </div>
 
+      {/* image */}
       <div className="relative h-96 w-full group hover:cursor-pointer my-7">
         <Image
           src={home?.imageUrl || ""}
@@ -64,10 +66,10 @@ export default function ListingDetails({ params }: {
         />
       </div>
 
-      {/* <div className="md:flex gap-8 md:items-start"> */}
-      <div className="grid grid-cols-7 gap-10 ">
+      <div className="md:flex md:gap-5 items-start">
 
-        <div className="mt-10 p-4 col-span-4 ">
+        {/* Left div */}
+        <div className="mt-10 p-4">
 
           <div className="font-semibold text-xl">
             Hosted by {home?.userId}
@@ -100,24 +102,21 @@ export default function ListingDetails({ params }: {
           </div>
 
           <div>
-            {/* <Map /> */}
+            <Map />
           </div>
 
         </div>
 
-        <div className="mt-10 border-2 rounded-xl col-span-3 overflow-hidden ">
+        <div className="mt-10 border-2 rounded-xl">
           <div className="text-2xl py-4 px-3 border-b-2">
             <span className="font-semibold">$</span>
             <span className="font-semibold"> {home?.price}</span>
             <span> / night</span>
           </div>
 
-          {/* <div className="overflow-hidden "> */}
-          {/* <div className=" w-full flex justify-center overflow-scroll md:overflow-hidden"> */}
-          <div>
-          <Calendar />
+          <div className="flex justify-center py-4">
+            <Calendar />
           </div>
-          {/* </div> */}
 
           <div className="py-4 px-2 border-t-2">
             <button className="w-full bg-rose-500 text-white rounded-lg py-3">Reserve</button>
@@ -128,9 +127,7 @@ export default function ListingDetails({ params }: {
           </div>
         </div>
 
-
       </div>
     </div>
-
   </>)
 }
