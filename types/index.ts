@@ -20,3 +20,12 @@ export type HomeData = {
 }
 
 export type ReservePropType = { [key: string]: DateType; }
+
+export type ReservationType = {
+  id: string,
+  startDate: string,
+  endDate: string,
+  listingId: string,
+  total: number,
+  userId: string,
+}

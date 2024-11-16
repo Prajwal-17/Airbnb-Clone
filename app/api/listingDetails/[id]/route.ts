@@ -1,6 +1,7 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
+//get all listings
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 
   const listingId = params.id;
@@ -23,7 +24,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-
+//listing a reservation
 export async function POST(request: NextRequest) {
 
   try {
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
     const reserve = await prisma.reservation.create({
       data: {
         startDate: res.startDate,
-        endDate: res.startDate,
+        endDate: res.endDate,
         total: res.total,
         listingId: res.listingId,
         userId: res.userId,

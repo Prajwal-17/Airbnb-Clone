@@ -5,6 +5,7 @@ import { ListingType } from "@/components/Listing";
 import ListDetailsUI from "@/components/LoadingUI/ListDetailsUI";
 import Map from "@/components/MapForm/Map";
 import { categories } from "@/constants/categories";
+import { totalPrice } from "@/lib/totalPrice";
 import { useReservationStore } from "@/store/reservation";
 import { ReservePropType } from "@/types";
 import { useSession } from "next-auth/react";
@@ -57,26 +58,10 @@ export default function ListingDetails({ params }: {
       const startDate = dateRange.selection.startDate.toISOString();
       const endDate = dateRange.selection.endDate.toISOString();
 
-      const totalPrice = (dateRange: ReservePropType) => {
-
-        const startTime: number = dateRange.selection.startDate?.getTime() ?? 0;
-        const endTime: number = dateRange.selection.endDate?.getTime() ?? 0;
-
-        const timeDiff = endTime - startTime;
-
-        const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
-
-        const price = home.price
-
-        const total = days * price;
-
-        return total
-      }
-
       const reservationData = {
-        startDate,
-        endDate,
-        total: totalPrice(dateRange),
+        startDate: startDate,
+        endDate: endDate,
+        total: totalPrice(dateRange, home.price),
         listingId: id,
         userId: session?.user.id,
       }
@@ -182,15 +167,20 @@ export default function ListingDetails({ params }: {
           </div>
 
           <div className="flex justify-center py-4">
-            <Calendar />
+            <Calendar id={home.id} price={home.price} />
           </div>
 
           <div className="py-4 px-2 border-t-2">
             <button onClick={() => handleReserve(dateRange)} className="w-full bg-rose-500 text-white rounded-lg py-3">Reserve</button>
           </div>
 
-          <div className="px-3 pb-2 text-xl">
-            <span>Total</span>
+          <div className="px-3 pb-2 text-lg font-semibold flex  justify-between">
+            <div>
+              Total
+            </div>
+            <div>
+              $ {totalPrice(dateRange, home.price)}
+            </div>
           </div>
         </div>
 
