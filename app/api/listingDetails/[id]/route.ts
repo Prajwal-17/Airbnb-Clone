@@ -22,3 +22,25 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     return NextResponse.json({ message: "Something went wrong", success: false })
   }
 }
+
+
+export async function POST(request: NextRequest) {
+
+  try {
+    const res = await request.json();
+
+    const reserve = await prisma.reservation.create({
+      data: {
+        startDate: res.startDate,
+        endDate: res.startDate,
+        total: res.total,
+        listingId: res.listingId,
+        userId: res.userId,
+      }
+    })
+
+    return NextResponse.json({ message: "Listing Reserved", success: true, reserve })
+  } catch (error) {
+    return NextResponse.json({ message: "Something went wrong", success: false, error })
+  }
+}

@@ -1,31 +1,13 @@
 "use client";
 
-import { useState } from 'react';
-import { DateRange, Range } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-
-type RangeType = {
-  startDate: Date | undefined;
-  endDate: Date | undefined;
-  key: string;
-};
+import { useReservationStore } from "@/store/reservation";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 export default function DateRangePicker() {
-  const initialDateRange: RangeType = {
-    startDate: new Date(),
-    endDate: new Date(),
-    key: "selection",
-  };
-
-  const [state, setState] = useState<{ [key: string]: Range }>({
-    [initialDateRange.key]: initialDateRange,
-  });
-
-  // console.log(state)
-  // console.log(typeof (state.selection.startDate))
-  // console.log(state.selection.endDate)
-  // console.log(state.key)
+  const dateRange = useReservationStore((state) => state.dateRange);
+  const setDate = useReservationStore((state) => state.setDate);
 
   return (
     <div>
@@ -34,13 +16,24 @@ export default function DateRangePicker() {
         editableDateInputs={true}
         onChange={(item) => {
           const key = item.selection.key ?? "selection";
-          setState({ [key]: item.selection });
+          const updatedRange = {
+            [key]: {
+              startDate: item.selection.startDate || undefined,
+              endDate: item.selection.endDate || undefined,
+              key,
+            },
+          };
+          setDate(updatedRange);
         }}
         moveRangeOnFirstSelection={false}
-        ranges={Object.values(state)}
+        ranges={Object.values(dateRange)}
         minDate={new Date()}
-        // direction="vertical"
+        direction="vertical"
         showDateDisplay={false}
+      // disabledDates={[
+      //   new Date("2024-11-20T00:19:11.000Z"),
+      //   new Date("2024-11-25T00:19:11.000Z"),
+      // ]}
       />
     </div>
   );

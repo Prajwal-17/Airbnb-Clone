@@ -5,16 +5,21 @@ import { ListingType } from "@/components/Listing";
 import ListDetailsUI from "@/components/LoadingUI/ListDetailsUI";
 import Map from "@/components/MapForm/Map";
 import { categories } from "@/constants/categories";
+import { useReservationStore } from "@/store/reservation";
+import { ReservePropType } from "@/types";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ListingDetails({ params }: {
   params: { id: string }
 }) {
 
+  const { data: session } = useSession();
   const id = params.id;
   const [home, setHome] = useState<ListingType | undefined>();
-  // const [hostedBy, setHostedBy] = useState("");
+  const dateRange = useReservationStore((state) => state.dateRange)
 
   useEffect(() => {
     const fetchListingDetails = async () => {
@@ -40,6 +45,67 @@ export default function ListingDetails({ params }: {
     )
   }
 
+  const handleReserve = async (dateRange: ReservePropType) => {
+
+    if (!session?.user.id) {
+      toast.error("Please Login to Reserve")
+      return
+    }
+
+    if (dateRange.selection.startDate && dateRange.selection.endDate) {
+
+      const startDate = dateRange.selection.startDate.toISOString();
+      const endDate = dateRange.selection.endDate.toISOString();
+
+      const totalPrice = (dateRange: ReservePropType) => {
+
+        const startTime: number = dateRange.selection.startDate?.getTime() ?? 0;
+        const endTime: number = dateRange.selection.endDate?.getTime() ?? 0;
+
+        const timeDiff = endTime - startTime;
+
+        const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
+
+        const price = home.price
+
+        const total = days * price;
+
+        return total
+      }
+
+      const reservationData = {
+        startDate,
+        endDate,
+        total: totalPrice(dateRange),
+        listingId: id,
+        userId: session?.user.id,
+      }
+
+      try {
+        const response = await fetch(`/api/listingDetails/${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reservationData)
+        })
+
+        const data = await response.json();
+
+        if (data.success) {
+          toast.success(data.message)
+        } else {
+          toast.error(data.message)
+        }
+      } catch (error) {
+        console.log(error)
+        toast.error("Something went wrong")
+      }
+    } else {
+      toast.error("Date not Selected")
+    }
+  }
+
   return (<>
 
     <div className="px-3 py-3 md:px-16 lg:px-28 md:py-8">
@@ -62,6 +128,7 @@ export default function ListingDetails({ params }: {
           // height={300}
           alt={home?.title || ""}
           fill
+          priority={false}
           className="rounded-xl object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105"
         />
       </div>
@@ -119,7 +186,7 @@ export default function ListingDetails({ params }: {
           </div>
 
           <div className="py-4 px-2 border-t-2">
-            <button className="w-full bg-rose-500 text-white rounded-lg py-3">Reserve</button>
+            <button onClick={() => handleReserve(dateRange)} className="w-full bg-rose-500 text-white rounded-lg py-3">Reserve</button>
           </div>
 
           <div className="px-3 pb-2 text-xl">

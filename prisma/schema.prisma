@@ -19,6 +19,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  reservation Reservation[]
 }
 
 model Account {
@@ -57,6 +59,24 @@ model Listing {
   title         String
   description   String
   price         Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reservation Reservation[]
+}
+
+model Reservation {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  startDate DateTime
+  endDate   DateTime
+  total     Int
+
+  Listing   Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String?  @db.ObjectId
+
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String? @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

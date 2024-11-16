@@ -1,3 +1,5 @@
+import { DateType } from "@/store/reservation";
+
 export type FormInputType = {
   name: string;
   email: string;
@@ -16,3 +18,5 @@ export type HomeData = {
   description: string
   price: number
 }
+
+export type ReservePropType = { [key: string]: DateType; }
