@@ -7,6 +7,7 @@ export type FormInputType = {
 };
 
 export type HomeData = {
+  id: string,
   category: string,
   country: string,
   location: [number, number],
@@ -16,7 +17,8 @@ export type HomeData = {
   imageUrl: string,
   title: string,
   description: string
-  price: number
+  price: number,
+  userId: string,
 }
 
 export type ReservePropType = { [key: string]: DateType; }

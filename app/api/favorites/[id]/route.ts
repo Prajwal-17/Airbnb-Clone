@@ -1,6 +1,7 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
+//update or remove the favorite lists
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
 
   const searchParams = request.nextUrl.searchParams;
@@ -41,9 +42,43 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       }
     })
 
-    return NextResponse.json({ message: "Successfull", success: true, user: user.favorites })
+    return NextResponse.json({ message: "Successfull", success: true, userFav: user.favorites })
   } catch (error) {
     console.log(error)
     return NextResponse.json({ message: "Failed adding to favorites", success: false })
+  }
+}
+
+//fetching favorites with listing details
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+
+  const userId = params.id;
+
+  try {
+
+    const userFavorites = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+      select: {
+        favorites: true,
+      }
+    });
+
+    if (!userFavorites?.favorites) {
+      return NextResponse.json({ message: "You have an empty list", success: true })
+    }
+
+    const listingDetails = await prisma.listing.findMany({
+      where: {
+        id: {
+          in: userFavorites.favorites,
+        }
+      }
+    })
+
+    return NextResponse.json({ message: "Successfully fetched favorites list", success: true, listings: listingDetails, favorites: userFavorites })
+  } catch (error) {
+    return NextResponse.json({ message: "Something went wrong", success: false })
   }
 }
