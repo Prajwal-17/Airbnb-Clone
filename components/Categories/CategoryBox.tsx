@@ -20,4 +20,3 @@ export const CategoryBox = ({ label, place, icon: Icon, selected }: CategoryBox)
 
   </>)
 }
-
