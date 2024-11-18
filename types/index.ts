@@ -30,4 +30,5 @@ export type ReservationType = {
   listingId: string,
   total: number,
   userId: string,
+  Listing: HomeData,
 }

@@ -1,5 +1,53 @@
+"use client"
+
+import ReservationsCard from "@/components/ReservationsCard";
+import { ReservationType } from "@/types";
+import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react";
+
 export default function Reservations() {
+
+  const { data: session } = useSession();
+  const userId = session?.user.id;
+  const [reservations, setReservations] = useState<ReservationType[]>([])
+
+  useEffect(() => {
+    const getReservations = async () => {
+      try {
+        const response = await fetch(`/api/reservations/${userId}`, {
+          method: "GET",
+        })
+
+        const data = await response.json()
+        setReservations(data.reservations)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    getReservations();
+  }, [userId])
+
   return (<>
-    <h1>Reservations page </h1>
+    <div className="mx-3 my-7 sm:mx-5 md:mx-10 lg:mx-16">
+      <div className="text-2xl font-bold">Properties</div>
+      <div className="text-gray-500">List of properties you have!</div>
+
+      {reservations.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-5">
+          {reservations.map((list) => (
+            <ReservationsCard
+              key={list.id}
+              list={list}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="h-[60vh] w-full flex flex-col justify-center items-center">
+          <p className="text-2xl font-bold">No Properties Found</p>
+          <p className="text-gray-500">Looks like you have no properties.</p>
+        </div>
+      )}
+    </div>
   </>)
 }
