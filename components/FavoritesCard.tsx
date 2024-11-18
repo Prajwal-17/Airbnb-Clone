@@ -7,14 +7,12 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 type FavoritesCardProps = {
-  index: number;
   list: HomeData;
   favorites?: string[];
   updateUserFavorites: (newFavorites: string[]) => void;
 };
 
 export default function FavoritesCard({
-  index,
   list,
   favorites = [],
   updateUserFavorites,
@@ -23,7 +21,7 @@ export default function FavoritesCard({
   const [heart, setHeart] = useState(true);
 
   useEffect(() => {
-    setHeart(favorites.includes(list.id));
+    setHeart(favorites.includes(list.id))
   }, [favorites, list.id]);
 
   const handleFavorite = async (listingId: string, userId: string) => {

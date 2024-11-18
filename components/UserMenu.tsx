@@ -26,8 +26,9 @@ export default function UserMenu() {
 
     if (session?.user.id) {
       setRentModal();
+    } else {
+      router.push("/auth/login")
     }
-    router.push("/auth/login")
 
   }
 

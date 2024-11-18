@@ -31,7 +31,6 @@ export default function Favorites() {
     }
   }, [userId]);
 
-  // Callback to update userFavorites
   const updateUserFavorites = (newFavorites: string[]) => {
     setUserFavorites(newFavorites);
   };
@@ -43,10 +42,9 @@ export default function Favorites() {
 
       {favoriteList.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-5">
-          {favoriteList.map((list, index) => (
+          {favoriteList.map((list) => (
             <FavoritesCard
               key={list.id}
-              index={index}
               list={list}
               favorites={userFavorites}
               updateUserFavorites={updateUserFavorites}

@@ -154,7 +154,7 @@ export default function ListingDetails({ params }: {
           </div>
 
           <div>
-            {/* <Map /> */}
+            <Map />
           </div>
 
         </div>

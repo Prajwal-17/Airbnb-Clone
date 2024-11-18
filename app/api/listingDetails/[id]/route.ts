@@ -45,3 +45,26 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Something went wrong", success: false, error })
   }
 }
+
+//delete listing
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+
+  const listingId = params.id;
+
+  try {
+    const listing = await prisma.listing.delete({
+      where: {
+        id: listingId,
+      }
+    })
+
+    if (!listing) {
+      return NextResponse.json({ messge: "Listing not found", success: false })
+    }
+
+    return NextResponse.json({ message: "Successfully deleted property", success: true })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json({ message: "Something went wrong", success: false })
+  }
+}
