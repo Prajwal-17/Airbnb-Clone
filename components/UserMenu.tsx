@@ -6,7 +6,7 @@ import ProfilePlaceholder from "@/public/placeholder.jpg";
 import { useState } from "react";
 import Link from "next/link";
 import { useRentModalStore } from "@/store/rentModal";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function UserMenu() {
@@ -57,16 +57,25 @@ export default function UserMenu() {
           />
         </div>
         {toggleMenu && (
-          <div className="absolute z-10 bg-white top-20 right-7  md:right-14 lg:right-16 py-4 shadow-md px-5 overflow-hidden rounded-lg w-48">
-            <ul className="flex flex-col gap-3 text-gray-700">
-              <li><Link href="/favorites" className="hover:text-black">My Favorites</Link></li>
-              <li><Link href="/reservations" className="hover:text-black">My Reservations</Link></li>
-              <li><Link href="/properties" className="hover:text-black">My Properties</Link></li>
-              <li onClick={showRentModal} className="hover:text-black">Airbnb My Home</li>
-              <hr />
-              <li className="text-red-600 hover:text-red-800 cursor-pointer">Logout</li>
-            </ul>
-          </div>
+          session ? (
+            <div className="absolute z-10 bg-white top-20 right-7  md:right-14 lg:right-16 py-4 shadow-md px-5 overflow-hidden rounded-lg w-48">
+              <ul className="flex flex-col gap-3 text-gray-700">
+                <li><Link href="/favorites" className="hover:text-black">My Favorites</Link></li>
+                <li><Link href="/reservations" className="hover:text-black">My Reservations</Link></li>
+                <li><Link href="/properties" className="hover:text-black">My Properties</Link></li>
+                <li onClick={showRentModal} className="hover:text-black">Airbnb My Home</li>
+                <hr />
+                <li onClick={() => signOut()} className="text-red-600 hover:text-red-800 cursor-pointer">Logout</li>
+              </ul>
+            </div>
+          ) : (
+            <div className="absolute z-10 bg-white top-20 right-7  md:right-14 lg:right-16 py-4 shadow-md px-5 overflow-hidden rounded-lg w-48">
+              <ul className="flex flex-col gap-3 text-gray-700">
+                <li><Link className="hover:text-black" href="/auth/login">Login</Link></li>
+                <li><Link className="hover:text-black" href="/auth/signup">SignUp</Link></li>
+              </ul>
+            </div>
+          )
         )}
       </div>
 

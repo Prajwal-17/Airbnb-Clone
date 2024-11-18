@@ -63,8 +63,8 @@ export default function RentModal() {
     title,
     description,
     price,
-    id:"",
-    userId:"",
+    id: "",
+    userId: "",
   }
 
   const { data: session } = useSession();
