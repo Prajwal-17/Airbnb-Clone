@@ -33,15 +33,3 @@ export const registerHome = async (data: HomeData, userId: string) => {
     return { message: "Something went wrong", success: false }
   }
 }
-
-//get all list of homes 
-export const getListing = async () => {
-
-  try {
-    const listing = await prisma.listing.findMany({})
-
-    return { message: "Successfully fetched Home Lists", success: true, listing: listing }
-  } catch (error) {
-    return { message: "Something went wrong", success: false }
-  }
-}

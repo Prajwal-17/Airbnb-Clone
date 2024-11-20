@@ -1,9 +1,9 @@
 "use client"
 
-import { getListing } from "@/actions/registerHome";
 import React, { Suspense, useEffect, useState } from "react";
 import ListLoadingUI from "./LoadingUI/ListLoadingUI";
 import { useSession } from "next-auth/react";
+import { useCategoryStore } from "@/store/category";
 
 export type ListingType = {
   id: string;
@@ -28,26 +28,10 @@ export default function Listing() {
 
   const { data: session } = useSession();
   const userId = session?.user.id;
-  const [listing, setListing] = useState<ListingType[] | undefined>(undefined);
+  const [listing, setListing] = useState<ListingType[]>([]);
+  const [filteredListing, setFilteredListing] = useState<ListingType[]>([])
   const [userFavorites, setUserFavorites] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        const homes = await getListing();
-        const listings = homes.listing;
-
-        if (listings) {
-          setListing(listings);
-        }
-
-      } catch (error) {
-        console.log("Something went wrong", error);
-      }
-    };
-
-    fetchListing();
-  }, []);
+  const categoryOptn = useCategoryStore((state) => state.categoryOptn);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -65,17 +49,62 @@ export default function Listing() {
 
     getUserData();
   }, [userId])
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        const response = await fetch(`/api/listing`, {
+          method: "GET",
+        });
+
+        const data = await response.json();
+
+        if (data) {
+          setListing(data.listing);
+          setFilteredListing(data.listing);
+        }
+
+      } catch (error) {
+        console.log("Something went wrong", error);
+      }
+    };
+
+    fetchListing();
+  }, []);
+
+  useEffect(() => {
+
+    if (!categoryOptn) {
+      setFilteredListing(listing)
+    } else {
+      const filtered = listing.filter(item =>
+        item.category === categoryOptn
+      );
+
+      setFilteredListing(filtered);
+    }
+  }, [categoryOptn, listing]);
+
   return (
     <>
       <Suspense fallback={<ListLoadingUI />}>
-        <section className="grid grid-cols-1 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:px-14 py-5 md:py-8 gap-6 ">
-          {
-            listing && listing.map((item) => (
-              <ListingCard item={item} key={item.id} favorites={userFavorites} />
-            ))
-          }
-        </section>
-      </Suspense>
+
+        {filteredListing.length > 0 ? (
+          <section className="grid grid-cols-1 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:px-14 py-5 md:py-8 gap-6 ">
+            {filteredListing.map((item) => (
+              <ListingCard
+                item={item}
+                key={item.id}
+                favorites={userFavorites}
+              />
+            ))}
+          </section>
+        ) : (
+          <div className="text-3xl font-bold">not found</div>
+        )}
+
+      </Suspense >
     </>
   );
 }
+

@@ -1,7 +1,7 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-//get all listings
+//get listings by id
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 
   const listingId = params.id;
