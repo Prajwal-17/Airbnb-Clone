@@ -1,3 +1,5 @@
+"use client"
+
 import { CategoryBox } from "@/components/Categories/CategoryBox";
 import Listing from "@/components/Listing";
 import { categories } from "@/constants/categories";
