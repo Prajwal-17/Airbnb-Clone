@@ -100,7 +100,7 @@ export default function Listing() {
             ))}
           </section>
         ) : (
-          <div className="text-3xl font-bold">not found</div>
+          <div className="text-3xl font-bold py-32 flex justify-center">No Listing Found</div>
         )}
 
       </Suspense >

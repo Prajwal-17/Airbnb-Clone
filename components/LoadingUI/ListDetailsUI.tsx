@@ -1,6 +1,6 @@
 export default function ListDetailsUI() {
   return (<>
-    <div className="px-28 py-8 animate-pulse">
+    <div className="px-8 md:px-28 py-8 animate-pulse">
       <div className="flex flex-col gap-3">
         <div className="bg-slate-300 h-7 w-60 rounded-xl"></div>
         <div className="bg-slate-300 h-6 w-32 rounded-xl"></div>
