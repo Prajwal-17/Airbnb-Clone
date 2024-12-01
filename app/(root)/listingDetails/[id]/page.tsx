@@ -26,7 +26,7 @@ export default function ListingDetails({ params }: {
     const fetchListingDetails = async () => {
       try {
         setHome(undefined)
-        const listing = await fetch(`http://localhost:3000/api/listingDetails/${id}`, {
+        const listing = await fetch(`/api/listingDetails/${id}`, {
           method: "GET",
         })
         const response = await listing.json();
