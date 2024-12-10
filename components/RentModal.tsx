@@ -109,7 +109,7 @@ export default function RentModal() {
   return (<>
 
     {rentModalPopup &&
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-10">
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-20">
         <div className="bg-white rounded-lg shadow-lg max-w-xl w-full ">
 
           <div className=" flex justify-between items-center py-6 px-10 border-b-2">

@@ -5,6 +5,8 @@ import Listing from "@/components/Listing";
 import { categories } from "@/constants/categories";
 import { useCategoryStore } from "@/store/category";
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
 
   const categoryOptn = useCategoryStore((state) => state.categoryOptn)
